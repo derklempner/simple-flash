@@ -3,7 +3,7 @@
 use Tamtamchik\SimpleFlash\Flash;
 use Tamtamchik\SimpleFlash\TemplateInterface;
 
-if ( ! function_exists('flash')) {
+if (!function_exists('flash')) {
 
     /**
      * Wrapper for flash object to be used as global function.
@@ -12,13 +12,14 @@ if ( ! function_exists('flash')) {
      * @param string            $type     - message type: success, info, warning, error
      * @param TemplateInterface $template - template (optional)
      *
-     * @return Flash
+     * @return \Tamtamchik\SimpleFlash\Engine|\Tamtamchik\SimpleFlash\Flash
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
      */
     function flash($message = '', $type = 'info', TemplateInterface $template = null)
     {
         $flash = new Flash($template);
 
-        if ( ! empty($message)) {
+        if (!empty($message)) {
             return $flash->message($message, $type);
         }
 

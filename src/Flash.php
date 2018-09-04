@@ -28,7 +28,7 @@ class Flash
     private static $engine;
 
     // Don't allow instantiation
-    final private function __clone() { }
+    final private function __clone() {}
 
     final public function __sleep()
     {
@@ -39,6 +39,8 @@ class Flash
      * Creates flash container from session.
      *
      * @param TemplateInterface|null $template
+     *
+     * @throws Exceptions\FlashTemplateNotFoundException
      */
     public function __construct(TemplateInterface $template = null)
     {
@@ -46,7 +48,7 @@ class Flash
             $template = TemplateFactory::create();
         }
 
-        if ( ! $assigned || ! isset(self::$engine)) {
+        if (!$assigned || !isset(self::$engine)) {
             self::$engine = new Engine($template);
         }
     }
@@ -76,6 +78,7 @@ class Flash
      * @param array  $arguments - arguments for method
      *
      * @return mixed
+     * @throws Exceptions\FlashTemplateNotFoundException
      */
     public static function __callStatic($method, array $arguments)
     {

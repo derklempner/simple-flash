@@ -23,6 +23,12 @@ flash()->setTemplate(TemplateFactory::create(Templates::SPECTRE));
     <title>Test Spectre.css default template example.</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectre.css/0.5.3/spectre.min.css" />
+
+    <style type="text/css">
+        .toast {
+            margin-bottom: 1em;
+        }
+    </style>
 </head>
 <body>
 

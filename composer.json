@@ -19,10 +19,10 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0"
+    "php": ">=7.0.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.*",
+    "phpunit/phpunit": "7.*",
     "scrutinizer/ocular": "1.*"
   },
   "autoload": {

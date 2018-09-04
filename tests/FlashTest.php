@@ -1,13 +1,17 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once 'BadTemplate.php';
 
-class FlashTest extends PHPUnit_Framework_TestCase
+class FlashTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function testStaticCall()
     {
         \Tamtamchik\SimpleFlash\Flash::message('Static message');
@@ -15,7 +19,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty(\Tamtamchik\SimpleFlash\Flash::display());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testCreation()
     {
         $flash = new \Tamtamchik\SimpleFlash\Flash();
@@ -24,7 +31,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Tamtamchik\SimpleFlash\Flash', get_class($flash));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testFunction()
     {
         $flash = flash();
@@ -33,7 +43,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Tamtamchik\SimpleFlash\Flash', get_class($flash));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testMessageWorkflow()
     {
         $flash = flash('Test info message');
@@ -43,7 +56,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($flash->hasMessages());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testFunctionMessageType()
     {
         $flash = flash('Test info message', 'success');
@@ -51,7 +67,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('success', $flash->display());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testChaining()
     {
         $flash = flash()->message('Test info message 1')->message('Test info message 2');
@@ -61,7 +80,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('Test info message 2', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testInfoDefaultMessage()
     {
         $flash = flash('Test info message');
@@ -69,7 +91,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('info', $flash->display());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testMessageTypes()
     {
         $flash = flash()
@@ -85,7 +110,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('danger', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testPartialDisplay()
     {
         $flash = flash()->message('Dummy 1', 'success')->message('Dummy 2');
@@ -98,7 +126,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertNotContains('Dummy 2', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testWrongDisplays()
     {
         $flash = flash()->message('Dummy 1', 'success')->message('Dummy 2');
@@ -110,7 +141,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testAccessAsString()
     {
         $flash = new \Tamtamchik\SimpleFlash\Flash();
@@ -120,7 +154,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('Test message', "{$flash}");
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testWrongMessageType()
     {
         $flash = flash();
@@ -129,7 +166,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(flash()->hasMessages());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testThatSessionIsShared()
     {
         flash('Checking shared');
@@ -138,7 +178,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('Checking shared', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testItFlushesChanges()
     {
         flash('First one', 'success')->message('Other one', 'info')->display();
@@ -147,7 +190,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(flash()->hasMessages());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testClearFunction()
     {
         flash('I\'ll never see this message', 'success');
@@ -156,7 +202,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(flash()->hasMessages());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testShortcuts()
     {
         flash()->error('Info message')->warning('Info message')->info('Info message')->success('Info message');
@@ -168,26 +217,35 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('success', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testToString()
     {
         flash('Testing toString', 'success');
         $flash1 = new \Tamtamchik\SimpleFlash\Flash();
-        $this->assertContains('toString', (string) $flash1);
+        $this->assertContains('toString', (string)$flash1);
 
         flash('Testing toString', 'success');
         $flash2 = flash();
-        $this->assertContains('toString', (string) $flash2);
+        $this->assertContains('toString', (string)$flash2);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testEmptyFunction()
     {
         flash('');
         $this->assertFalse(flash()->hasMessages());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testWorkWithArrays()
     {
         $errors = [
@@ -202,12 +260,15 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('Invalid email', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testDefaultTemplate()
     {
         $template = \Tamtamchik\SimpleFlash\TemplateFactory::create();
 
-        $prefix  = $template->getPrefix();
+        $prefix = $template->getPrefix();
         $postfix = $template->getPostfix();
         $template->setPrefix('');
         $template->setPostfix('');
@@ -221,49 +282,60 @@ class FlashTest extends PHPUnit_Framework_TestCase
 
         $content = $flash->info('Testing templates')->display();
 
-        $this->assertEquals('<p>', $prefix);
+        $this->assertEquals('', $prefix);
         $this->assertNotEquals($contentOriginal, $content);
         $this->assertContains('Testing templates', $content);
-        $this->assertNotContains($prefix, $content);
         $this->assertNotContains($postfix, $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testClassWithTemplateConstructor()
     {
-        $template = \Tamtamchik\SimpleFlash\TemplateFactory::create(\Tamtamchik\SimpleFlash\Templates::FOUNDATION_5);
-        $flash    = new \Tamtamchik\SimpleFlash\Flash($template);
+        $template = \Tamtamchik\SimpleFlash\TemplateFactory::create(\Tamtamchik\SimpleFlash\Templates::FOUNDATION);
+        $flash = new \Tamtamchik\SimpleFlash\Flash($template);
 
         $flash->info('Testing templates');
 
         $content = $flash->display();
-        $this->assertContains('data-alert', $content);
+        $this->assertContains('callout', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testFunctionWithTemplateConstructor()
     {
-        $template = \Tamtamchik\SimpleFlash\TemplateFactory::create(\Tamtamchik\SimpleFlash\Templates::FOUNDATION_5);
+        $template = \Tamtamchik\SimpleFlash\TemplateFactory::create(\Tamtamchik\SimpleFlash\Templates::FOUNDATION);
 
         flash('Testing templates', 'info', $template);
 
         $content = flash()->display();
-        $this->assertContains('data-alert', $content);
+        $this->assertContains('callout', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testSetTemplateFunction()
     {
-        $template = \Tamtamchik\SimpleFlash\TemplateFactory::create(\Tamtamchik\SimpleFlash\Templates::FOUNDATION_5);
-        $flash    = new \Tamtamchik\SimpleFlash\Flash();
+        $template = \Tamtamchik\SimpleFlash\TemplateFactory::create(\Tamtamchik\SimpleFlash\Templates::FOUNDATION);
+        $flash = new \Tamtamchik\SimpleFlash\Flash();
 
         $flash->info('Testing templates');
 
         $content = $flash->setTemplate($template)->display();
-        $this->assertContains('data-alert', $content);
+        $this->assertContains('callout', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testGetTemplate()
     {
         $flash = new \Tamtamchik\SimpleFlash\Flash();
@@ -276,7 +348,10 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('BBBBBBBB', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testStaticMethods()
     {
         \Tamtamchik\SimpleFlash\Flash::setTemplate(\Tamtamchik\SimpleFlash\TemplateFactory::create());
@@ -287,16 +362,23 @@ class FlashTest extends PHPUnit_Framework_TestCase
         $this->assertContains('Testing static', $content);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     * @throws \ReflectionException
+     */
     public function testCloneRestriction()
     {
-        $flash      = new \Tamtamchik\SimpleFlash\Flash();
+        $flash = new \Tamtamchik\SimpleFlash\Flash();
         $reflection = new ReflectionClass($flash);
 
         $this->assertFalse($reflection->isCloneable());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
+     */
     public function testNotSerializable()
     {
         $flash = new \Tamtamchik\SimpleFlash\Flash();
@@ -312,11 +394,12 @@ class FlashTest extends PHPUnit_Framework_TestCase
      * Need to be last - because spoils template.
      *
      * @test
+     * @throws \Tamtamchik\SimpleFlash\Exceptions\FlashTemplateNotFoundException
      */
     public function testBadTemplate()
     {
         $template = new BadTemplate();
-        $flash    = new \Tamtamchik\SimpleFlash\Flash();
+        $flash = new \Tamtamchik\SimpleFlash\Flash();
 
         $flash->info('Testing templates');
 

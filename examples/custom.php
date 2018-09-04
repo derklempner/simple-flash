@@ -39,11 +39,13 @@ flash()->setTemplate(new CustomTemplate)->error(['Invalid email!', 'Invalid user
     <title>Test custom template example.</title>
 
     <style>
+
         .container {
             width: 800px;
             margin: 0 auto;
-            font-family: monospace;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
         }
+
         .a {
             border: 1px solid;
             border-radius: 10px;
@@ -57,18 +59,26 @@ flash()->setTemplate(new CustomTemplate)->error(['Invalid email!', 'Invalid user
 
         .a-info {
             background: lightblue;
+            border-color: darkblue;
+            color: darkblue;
         }
 
         .a-error {
             background: lightpink;
+            border-color: red;
+            color: red;
         }
 
         .a-warning {
             background: lightgoldenrodyellow;
+            border-color: orange;
+            color: orange;
         }
 
         .a-success {
             background: lightgreen;
+            border-color: green;
+            color: green;
         }
     </style>
 </head>

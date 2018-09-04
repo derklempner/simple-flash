@@ -7,7 +7,7 @@ use Tamtamchik\SimpleFlash\TemplateInterface;
 
 /**
  * Class TailwindTemplate.
- * Uses default Semantic UI markdown for flash messages.
+ * Uses default Tailwind markdown for flash messages.
  */
 class TailwindTemplate extends BaseTemplate implements TemplateInterface
 {

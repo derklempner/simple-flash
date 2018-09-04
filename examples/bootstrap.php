@@ -12,7 +12,7 @@ flash()->error(['Invalid email!', 'Invalid username!'])
     ->info('Info message.')
     ->success('Success message!');
 
-flash()->setTemplate(TemplateFactory::create(Templates::BOOTSTRAP_4));
+flash()->setTemplate(TemplateFactory::create(Templates::BOOTSTRAP));
 
 ?>
 
@@ -37,11 +37,6 @@ flash()->setTemplate(TemplateFactory::create(Templates::BOOTSTRAP_4));
 
     <?= flash() ?>
 </div>
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.js"></script>
-
 
 </body>
 </html>
